@@ -93,7 +93,6 @@ if not os.path.exists(saved_animation_folder):
     os.mkdir(saved_animation_folder)
     
 
-
 ## Parameters for simulation!
 # update in time
 delta_t = 1.0
