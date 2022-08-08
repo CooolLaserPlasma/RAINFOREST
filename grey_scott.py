@@ -46,10 +46,16 @@ def initial_configuration_square_middle(N, random_influence=0.2):
     
     # Now let's add a disturbance in the center
     middle = N//2
-    r = int(N/10.0)
+    r = int(N/20.0)
     
     middle_left  = middle - r
     middle_right = middle + r
+    
+    # A[middle_left-100:middle_right-80, middle_left-100:middle_right-80] = 0.50
+    # B[middle_left-100:middle_right-80, middle_left-100:middle_right-80] = 0.25
+    
+    # A[middle_left+80:middle_right+100, middle_left+80:middle_right+100] = 0.50
+    # B[middle_left+80:middle_right+100, middle_left+80:middle_right+100] = 0.25
     
     A[middle_left:middle_right, middle_left:middle_right] = 0.50
     B[middle_left:middle_right, middle_left:middle_right] = 0.25
@@ -64,15 +70,12 @@ def initial_configuration_several_squares(N, N_squares, random_influence=0.2):
     # Let's assume there's only a bit of B everywhere
     B = random_influence * np.random.random((N,N))
     
-    
-    
-    
     # # Now let's add a disturbance in the center
     # middle = N//4
     # r = int(N/10.0)
     
     # middle_left = middle - r
-    # middle_right = middle +r
+    # middle_right = middle + r
     
     # A[middle_left:middle_right, middle_left:middle_right] = 0.50
     # B[middle_left:middle_right, middle_left:middle_right] = 0.25
@@ -113,10 +116,11 @@ y = x
 X, Y = np.meshgrid(x, y)
 R = np.sqrt(X**2 + Y**2)
 
+
 # simulation steps
-N = 100
+N = 10000
 only_save_every = 10
-print_every     = 1000
+print_every     = 100
 
 A, B = initial_configuration_square_middle(grid_size)
 
@@ -124,6 +128,11 @@ plt.figure(1)
 plt.imshow(A)
 
 #%%
+
+# x = np.arange(0,200,1)
+# y = np.arange(0,200,1)
+
+# y = np.linspace(0,200,2000)
 
 animation_images = []
 fig = plt.figure()
@@ -145,9 +154,22 @@ ani = animation.ArtistAnimation(fig, animation_images, interval=4, blit=True,
                                 repeat_delay=1000)
 
 
+# plt.figure(1)
+# plt.imshow(A, animated=True, origin='lower')
+
+# plt.axis('off')
+# plt.savefig('large_middle_square_50000.svg' , format='svg')
+
+# plt.figure(2)
+# plt.imshow(binary, animated=True, origin='lower')
+
+# plt.axis('off')
+# plt.savefig('large_middle_square_50000_binary.svg' , format='svg')
+
+
 #%%
 
-ani.save('first_reaction_jox.gif')
+# ani.save('first_reaction_jox.gif')
 
 #%%
 
